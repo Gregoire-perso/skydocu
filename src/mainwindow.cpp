@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->customEmptyCells->setVisible(false);
+    ui->sliderValue->setVisible(false);
+
+    ui->customEmptyCells->setRange(10, 70);
 }
 
 MainWindow::~MainWindow()
@@ -19,10 +22,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_customButton_toggled(bool checked)
 {
-    if (ui->customEmptyCells->isVisible())
+    if (ui->customEmptyCells->isVisible()) {
         ui->customEmptyCells->setVisible(false);
+        ui->sliderValue->setVisible(false);
+    }
 
-    else
+    else {
         ui->customEmptyCells->setVisible(true);
+        ui->sliderValue->setVisible(true);
+    }
+}
+
+
+void MainWindow::on_customEmptyCells_valueChanged(int value)
+{
+    ui->sliderValue->setText(QString::number(ui->customEmptyCells->value()));
 }
 

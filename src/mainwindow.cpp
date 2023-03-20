@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->customEmptyCells->setVisible(false);
+    ui->verticalLayout->setAlignment(ui->sliderValue, Qt::AlignCenter);
     ui->sliderValue->setVisible(false);
-
     ui->customEmptyCells->setRange(10, 70);
 }
 

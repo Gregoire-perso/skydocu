@@ -17,8 +17,8 @@ public:
 
 private slots:
     void on_customButton_toggled(bool checked);
-
     void on_customEmptyCells_valueChanged(int value);
+    void on_startButton_clicked();
 
 private:
     Ui::MainWindow *ui;

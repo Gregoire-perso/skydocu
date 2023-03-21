@@ -39,3 +39,13 @@ void MainWindow::on_customEmptyCells_valueChanged(int value)
     ui->sliderValue->setText(QString::number(ui->customEmptyCells->value()));
 }
 
+
+void MainWindow::on_startButton_clicked()
+{
+    this->hide();
+    Q *newWindow = new QWidget();
+    newWindow->show();
+
+    //delete newWindow;
+}
+

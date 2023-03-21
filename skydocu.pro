@@ -21,7 +21,8 @@ QMAKE_LFLAGS_DEBUG += -g -fsanitize=address
 # Source files
 SOURCES += $$system(find ./src/ -type f -name "*.cpp")
 HEADERS += $$system(find ./src/ -type f -name "*.h")
-FORMS += src/forms/mainwindow.ui
+FORMS += src/forms/mainwindow.ui \
+    src/forms/sudokuwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

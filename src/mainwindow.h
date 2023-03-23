@@ -22,6 +22,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Ui::SudokuWindow *sudoku;
+    SudokuWindow *sudoku;
 };
 #endif // MAINWINDOW_H

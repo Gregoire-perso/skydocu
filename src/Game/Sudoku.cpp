@@ -101,7 +101,7 @@ Sudoku::Sudoku(QTableWidget *widget, int custom) : m_grid(widget)  {
 }
 
 bool Sudoku::checkCell(int row, int col) {
-    return cells[Utils::toRowMajor(row, col)].checkValue();
+    return cells[Utils::toRowMajor(row, col)]->checkValue();
 }
 
 bool Sudoku::IsValidBoard() {

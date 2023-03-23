@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "sudokuwindow.h"
 #include <iostream>
 #include <QLabel>
 
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    delete sudoku;
     delete ui;
 }
 
@@ -43,9 +45,8 @@ void MainWindow::on_customEmptyCells_valueChanged(int value)
 void MainWindow::on_startButton_clicked()
 {
     this->hide();
-    Q *newWindow = new QWidget();
-    newWindow->show();
-
+    sudoku = new SudokuWindow();
+    sudoku->show();
     //delete newWindow;
 }
 

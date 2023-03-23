@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "sudokuwindow.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -22,5 +22,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    Ui::SudokuWindow *sudoku;
 };
 #endif // MAINWINDOW_H

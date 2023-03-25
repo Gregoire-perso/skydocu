@@ -170,6 +170,11 @@
       <string>8</string>
      </property>
     </column>
+    <item row="0" column="0">
+     <property name="text">
+      <string/>
+     </property>
+    </item>
    </widget>
    <widget class="QCheckBox" name="checkGrid">
     <property name="geometry">

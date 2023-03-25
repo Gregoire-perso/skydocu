@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "Game/Sudoku.h"
 #include "ui_mainwindow.h"
 #include "sudokuwindow.h"
 #include <iostream>
@@ -44,9 +45,23 @@ void MainWindow::on_customEmptyCells_valueChanged(int value)
 
 void MainWindow::on_startButton_clicked()
 {
+    // Get the radio button selected
+    if (ui->easyButton->isChecked())
+        sudoku = new SudokuWindow(Difficulty::Easy);
+
+    else if (ui->intermediateButton->isChecked())
+        sudoku = new SudokuWindow(Difficulty::Medium);
+
+    else if (ui->hardButton->isChecked())
+        sudoku = new SudokuWindow(Difficulty::Hard);
+
+    else if (ui->customButton->isChecked())
+        sudoku = new SudokuWindow(ui->customEmptyCells->value());
+    
+    else
+        return;
+
     this->hide();
-    sudoku = new SudokuWindow();
     sudoku->show();
-    //delete newWindow;
 }
 

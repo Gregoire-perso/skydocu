@@ -21,6 +21,7 @@ private:
     bool IsValidRow(int row);
     bool IsValidCol(int col);
     bool IsValidSquare(int sq);
+    bool IsSolved();
 
 public:
     static const int BoardSize = 9;
@@ -29,7 +30,7 @@ public:
     ~Sudoku();
     bool checkCell(int row, int col);
     bool IsValidBoard();
-    bool Solve(int row = 0, int col = 0);
+    bool Solve(int pos = 0);
 };
 
 #endif

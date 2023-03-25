@@ -18,11 +18,14 @@ private:
     /// Column of the cell
     int m_col;
 
-    /// Check if the value is a number between 1 and 9
-    bool checkValue();
-
-    /// Check if the number inside the cell if coherent with the other cells
+    /*
+     * @brief Check if the text inside the cell is a number between 1 and 9
+     *
+     * @exception Throw Utils::NotValidEntryException if the text is not correct
+     */
     int getValue();
+
+    bool checkValue();
 
     Cell(QTableWidget *widget, int row, int col, int default_value = 0);
 };

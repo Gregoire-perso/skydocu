@@ -84,6 +84,14 @@ bool Sudoku::IsValidSquare(int sq) {
     return true;
 }
 
+bool Sudoku::IsSolved() {
+    for (int i = 0; i < BoardSize * BoardSize; i++)
+        if (m_board[i] == 0)
+            return false;
+
+    return IsValidBoard();
+}
+
 /*
  * PUBLIC FUNCTIONS
  */
@@ -116,5 +124,24 @@ bool Sudoku::IsValidBoard() {
     }
 
     return true;
+}
+
+bool Sudoku::Solve(int pos) {
+    if (IsSolved())
+        return true;
+
+    for (int i = 0; i < BoardSize; i++) {
+        if (m_board[0] != 0)
+            return Solve(pos + 1);
+
+        m_board[pos] = i;
+        if (!IsValidBoard())
+            m_board[pos] = 0;
+
+        else if (Solve(pos + 1))
+            return true;
+    }
+    
+    return false;
 }
 

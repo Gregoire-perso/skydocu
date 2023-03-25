@@ -1,6 +1,7 @@
 #ifndef SUDOKUWINDOW_H
 #define SUDOKUWINDOW_H
 
+#include "Game/Sudoku.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -12,7 +13,8 @@ class SudokuWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    SudokuWindow(QWidget *parent = nullptr);
+    SudokuWindow(Difficulty d, QWidget *parent = nullptr);
+    SudokuWindow(int custom, QWidget *parent = nullptr);
     ~SudokuWindow();
 
 private slots:
@@ -20,6 +22,7 @@ private slots:
 
 private:
     Ui::SudokuWindow *ui;
+    Sudoku *sudoku;
 };
 
 #endif // SUDOKUWINDOW_H

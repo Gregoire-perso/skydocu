@@ -26,6 +26,18 @@ SudokuWindow::~SudokuWindow()
 
 void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
 {
+    if (sudoku->checkCell(row, column)
+}
+
+
+void SudokuWindow::on_validateButton_clicked()
+{
+
+}
+
+
+void SudokuWindow::on_backButton_clicked()
+{
 
 }
 

@@ -176,12 +176,38 @@
      <rect>
       <x>750</x>
       <y>250</y>
-      <width>101</width>
+      <width>141</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Check grid</string>
+     <string>Real-time check</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="validateButton">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>330</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Validate</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back</string>
     </property>
    </widget>
   </widget>

@@ -20,6 +20,10 @@ public:
 private slots:
     void on_sudokuWidget_cellChanged(int row, int column);
 
+    void on_validateButton_clicked();
+
+    void on_backButton_clicked();
+
 private:
     Ui::SudokuWindow *ui;
     Sudoku *sudoku;

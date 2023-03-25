@@ -31,6 +31,7 @@ public:
     bool checkCell(int row, int col);
     bool IsValidBoard();
     bool Solve(int pos = 0);
+    void printBoard();
 };
 
 #endif

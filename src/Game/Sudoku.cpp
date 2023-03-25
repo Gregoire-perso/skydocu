@@ -43,7 +43,7 @@ void Sudoku::clearCells(int number) {
                  rng);
 
     for (int i = 0; i < number; i++)
-        m_board[i] = 0;
+        m_board[shuffled_positions[i]] = 0;
 }
 
 void Sudoku::initCells() {
@@ -123,16 +123,20 @@ Sudoku::Sudoku(QTableWidget *widget, Difficulty d) : m_grid(widget) {
     std::cout << "Start Sudoku creation" << std::endl;
     CreateRandomSolved();
     std::cout << "Random Sudoku created" << std::endl;
-    clearCells(BoardSize - (int) d);
+    clearCells((int) d);
     std::cout << "Cells cleared" << std::endl;
     initCells();
     std::cout << "Cells init" << std::endl;
 }
 
 Sudoku::Sudoku(QTableWidget *widget, int custom) : m_grid(widget)  {
+    std::cout << "Start Sudoku creation" << std::endl;
     CreateRandomSolved();
+    std::cout << "Random Sudoku created" << std::endl;
     clearCells(custom);
+    std::cout << "Cells cleared" << std::endl;
     initCells();
+    std::cout << "Cells init" << std::endl;
 }
 
 bool Sudoku::checkCell(int row, int col) {
@@ -177,28 +181,11 @@ bool Sudoku::Solve(int pos) {
 
     return true;
 }
-    /*
-    for (int i = pos; i < BoardSize * BoardSize; i++) {
-        if (m_board[i] != 0)
-            continue;
 
-        int nb;
-        for (nb = 1; nb < BoardSize + 1; nb++) {
-            m_board[i] = nb;
-
-            if (IsValidRow(Utils::getRowFromRowM(i)) && 
-                IsValidCol(Utils::getColFromRowM(i)) && 
-                IsValidSquare(Utils::getSquareNumber(i)) &&
-                Solve(i + 1))
-                    break;
-        }
-
-        if (nb == BoardSize + 1) {
-            m_board[i] = 0;
-            return 0;
-        }
+void Sudoku::printBoard() {
+    for (int i = 0; i < BoardSize * BoardSize; i++) {
+        std::cout << m_board[i] << " ";
+        if ((i + 1) % 9 == 0)
+            std::cout << std::endl;
     }
-
-    return true;
 }
-*/

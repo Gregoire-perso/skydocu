@@ -25,6 +25,7 @@ private slots:
     void on_backButton_clicked();
 
 private:
+    bool m_initFinished = false;
     Ui::SudokuWindow *ui;
     Sudoku *sudoku;
 };

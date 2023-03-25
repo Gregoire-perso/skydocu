@@ -9,6 +9,7 @@ SudokuWindow::SudokuWindow(Difficulty d, QWidget *parent) :
 {
     ui->setupUi(this);
     sudoku = new Sudoku(ui->sudokuWidget, d);
+    m_initFinished = true;
 }
 
 SudokuWindow::SudokuWindow(int custom, QWidget *parent) :
@@ -26,7 +27,23 @@ SudokuWindow::~SudokuWindow()
 
 void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
 {
-    if (sudoku->checkCell(row, column)
+    if (m_initFinished) {
+        ui->sudokuWidget->item(row, column)->setBackgroundColor(Qt::transparent);
+        if (!sudoku->checkCell(row, column)) {
+            QTableWidgetItem *item = new QTableWidgetItem;
+            item->setText("");
+            ui->sudokuWidget->setItem(row, column, item);
+        }
+
+        if (ui->checkGrid->isChecked()) {
+            if (!sudoku->IsValidBoard()) {
+                QTableWidgetItem *item = new QTableWidgetItem;
+                item->setText(ui->sudokuWidget->item(row, column)->text());
+                item->setBackground(Qt::red);
+                ui->sudokuWidget->setItem(row, column, item);
+            }
+        }
+    }
 }
 
 

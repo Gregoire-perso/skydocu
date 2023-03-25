@@ -10,8 +10,8 @@ enum Difficulty { Easy = 45, Medium = 30, Hard = 20 };
 
 class Sudoku {
 private:
-    Cell *cells[81];
-    vector<int> m_board;
+    Cell *cells[81] = { NULL };
+    int m_board[81] = { 0 };
     QTableWidget *m_grid;
 
     void CreateRandomSolved();

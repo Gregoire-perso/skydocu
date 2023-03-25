@@ -4,9 +4,12 @@
 #include <cstdlib>
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 Cell::Cell(QTableWidget *widget, int row, int col, int default_value) 
     : m_row(row), m_col(col), m_defaultValue(default_value), m_widget(widget) {
+    
+    std::cout << "Cell construct at row: " << row << ", col: " << col << std::endl;
     if (m_defaultValue != 0) {
         QTableWidgetItem *item = new QTableWidgetItem;
         item->setText(QString::number(m_defaultValue));

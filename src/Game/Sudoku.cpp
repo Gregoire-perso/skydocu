@@ -6,6 +6,8 @@
 #include <random>
 #include <algorithm>
 
+#include <iostream>
+
 using namespace std;
 
 /*
@@ -14,6 +16,19 @@ using namespace std;
 
 void Sudoku::CreateRandomSolved() {
     // init first line randomly
+    vector<int> shuffled_positions;
+    for (int i = 1; i < BoardSize + 1; i++)
+        shuffled_positions.push_back(i);
+
+    auto rng = std::default_random_engine {};
+    std::shuffle(std::begin(shuffled_positions), 
+                 std::end(shuffled_positions),
+                 rng);
+
+    
+    for (int i = 0; i < BoardSize; i++)
+        m_board[i] = shuffled_positions[i];
+
     Solve();
 }
 
@@ -37,13 +52,16 @@ void Sudoku::initCells() {
 }
 
 bool Sudoku::IsValidRow(int row) {
-    int tmp[BoardSize + 1] = {0};
-    for (int i = 0; i < BoardSize; i++) {
-        int val = m_board[Utils::toRowMajor(row, i)]; 
-        if (val != 0) {
-            tmp[val]++;
-            if (tmp[val] > 1)
+    int numbers[BoardSize] = {0};
+
+    for (size_t column = 0; column < BoardSize; column++) {
+        if (m_board[row * BoardSize + column] != 0) {
+            if (numbers[m_board[row * BoardSize + column] - 1] == 1) {
                 return false;
+            }
+            else { 
+                numbers[m_board[row * BoardSize + column] - 1] = 1;
+            }
         }
     }
 
@@ -51,14 +69,17 @@ bool Sudoku::IsValidRow(int row) {
 }
 
 bool Sudoku::IsValidCol(int col) {
-    int tmp[BoardSize + 1] = {0};
-    for (int i = 0; i < BoardSize; i++) {
-        int val = m_board[Utils::toRowMajor(i, col)]; 
-        if (val != 0) {
-            tmp[val]++;
-            if (tmp[val] > 1)
+    int numbers[BoardSize] = {0};
+
+    for (size_t line = 0; line < BoardSize; line++) {
+        if (m_board[line * BoardSize + col] != 0) {
+            if (numbers[m_board[line * BoardSize + col] - 1] == 1) {
                 return false;
-        }
+            }
+            else {
+                numbers[m_board[line * BoardSize + col] - 1] = 1;
+            }
+        }         
     }
 
     return true;
@@ -68,19 +89,21 @@ bool Sudoku::IsValidSquare(int sq) {
     int col = (sq % 3) * 3;
     int row = (sq / 3) * 3;
 
-    int tmp[BoardSize + 1] = {0};
+    int numbers[BoardSize] = {0};
 
-    for (int i = col; i < col + 3; i++) {
-        for (int j = row; j < row + 3; j++) {
-            int val = m_board[Utils::toRowMajor(j, i)]; 
-            if (val != 0) {
-                tmp[val]++;
-                if (tmp[val] > 1)
-                    return false;
-            }
+    for (int i = row; i < row + 3; i ++) {
+        for (int j = col; j < col + 3; j ++) {
+            if (m_board[i * BoardSize + j] != 0) {
+                 if (numbers[m_board[i * BoardSize + j] - 1] == 1) {
+                     return false;
+                 }
+                 else {
+                     numbers[m_board[i * BoardSize + j] - 1] = 1;
+                 }
+             }        
         }
     }
-    
+
     return true;
 }
 
@@ -97,9 +120,13 @@ bool Sudoku::IsSolved() {
  */
 
 Sudoku::Sudoku(QTableWidget *widget, Difficulty d) : m_grid(widget) {
+    std::cout << "Start Sudoku creation" << std::endl;
     CreateRandomSolved();
+    std::cout << "Random Sudoku created" << std::endl;
     clearCells(BoardSize - (int) d);
+    std::cout << "Cells cleared" << std::endl;
     initCells();
+    std::cout << "Cells init" << std::endl;
 }
 
 Sudoku::Sudoku(QTableWidget *widget, int custom) : m_grid(widget)  {
@@ -127,21 +154,51 @@ bool Sudoku::IsValidBoard() {
 }
 
 bool Sudoku::Solve(int pos) {
-    if (IsSolved())
-        return true;
-
-    for (int i = 0; i < BoardSize; i++) {
-        if (m_board[0] != 0)
-            return Solve(pos + 1);
-
-        m_board[pos] = i;
-        if (!IsValidBoard())
-            m_board[pos] = 0;
-
-        else if (Solve(pos + 1))
-            return true;
+    for (size_t i = 0; i < BoardSize; i++) {
+        for (size_t j = 0; j < BoardSize; j++) {
+            if (m_board[i * BoardSize + j] == 0) {
+                int num = 1;
+                for (; num <= BoardSize; num++) {
+                    m_board[i * BoardSize + j] = num;
+                    if (IsValidRow(i) && 
+                        IsValidCol(j) && 
+                        IsValidSquare(Utils::getSquareNumber(i, j)) &&
+                        Solve() == 1)
+                            break;
+                }
+ 
+                if (num == BoardSize + 1) {
+                    m_board[i * BoardSize + j] = 0;
+                    return false;
+                }
+            }
+        }
     }
-    
-    return false;
-}
 
+    return true;
+}
+    /*
+    for (int i = pos; i < BoardSize * BoardSize; i++) {
+        if (m_board[i] != 0)
+            continue;
+
+        int nb;
+        for (nb = 1; nb < BoardSize + 1; nb++) {
+            m_board[i] = nb;
+
+            if (IsValidRow(Utils::getRowFromRowM(i)) && 
+                IsValidCol(Utils::getColFromRowM(i)) && 
+                IsValidSquare(Utils::getSquareNumber(i)) &&
+                Solve(i + 1))
+                    break;
+        }
+
+        if (nb == BoardSize + 1) {
+            m_board[i] = 0;
+            return 0;
+        }
+    }
+
+    return true;
+}
+*/

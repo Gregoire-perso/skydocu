@@ -7,9 +7,10 @@ SudokuWindow::SudokuWindow(Difficulty d, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SudokuWindow)
 {
+    ui->setupUi(this);
     std::cout << "Diff " << (int) d << std::endl;
     sudoku = new Sudoku(ui->sudokuWidget, d);
-    ui->setupUi(this);
+    std::cout << "Before setupUi" << std::endl;
 }
 
 SudokuWindow::SudokuWindow(int custom, QWidget *parent) :

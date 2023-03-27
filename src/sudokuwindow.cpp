@@ -33,9 +33,6 @@ SudokuWindow::~SudokuWindow()
 void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
 {
     if (cellChangeAllowed) {
-        cellChangeAllowed = false;
-        //ui->sudokuWidget->item(row, column)->setBackgroundColor(Qt::transparent);
-        cellChangeAllowed = true;
         if (!sudoku->checkCell(row, column)) {
             sudoku->resetCell(row, column);
             return;
@@ -45,11 +42,9 @@ void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
         sudoku->printBoard();
 
         if (ui->checkGrid->isChecked()) {
-            std::cout << "Check cell value" << std::endl;
             if (!(sudoku->IsValidSquare(row, column) ||
                   sudoku->IsValidCol(column) ||
                   sudoku->IsValidRow(row))) {
-                std::cout << "Not valid value" << std::endl;
                 cellChangeAllowed = false;
                 ui->sudokuWidget->item(row, column)->setBackgroundColor(Qt::red);
                 cellChangeAllowed = true;

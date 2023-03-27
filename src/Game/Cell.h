@@ -2,6 +2,7 @@
 #define CELL_H
 
 #include <QTableWidget>
+#include <QColor>
 
 class Cell {
 
@@ -10,6 +11,7 @@ friend class Sudoku;
 private:
     /// The widget where the cells are
     QTableWidget *m_widget;
+    QColor m_color;
     int m_defaultValue;
 
     /// Row of the cell
@@ -26,6 +28,10 @@ private:
     int getValue();
 
     bool checkValue();
+
+    void changeValue(int val);
+
+    void resetValue();
 
     Cell(QTableWidget *widget, int row, int col, int default_value = 0);
 };

@@ -1,4 +1,6 @@
 #include "Sudoku.h"
+#include "../sudokuwindow.h"
+#include "../../ui_sudokuwindow.h"
 #include "Cell.h"
 #include "Utils.h"
 #include <iterator>
@@ -47,8 +49,10 @@ void Sudoku::clearCells(int number) {
 }
 
 void Sudoku::initCells() {
+    m_sudokuWindow->cellChangeAllowed = false;
     for (int i = 0; i < BoardSize * BoardSize; i++)
         cells[i] = new Cell(m_grid, i / BoardSize, i % BoardSize, m_board[i]);
+    m_sudokuWindow->cellChangeAllowed = true;
 }
 
 bool Sudoku::IsValidRow(int row) {
@@ -85,6 +89,10 @@ bool Sudoku::IsValidCol(int col) {
     return true;
 }
 
+bool Sudoku::IsValidSquare(int row, int col) {
+    return IsValidSquare(Utils::getSquareNumber(row, col));
+}
+
 bool Sudoku::IsValidSquare(int sq) {
     int col = (sq % 3) * 3;
     int row = (sq / 3) * 3;
@@ -119,7 +127,8 @@ bool Sudoku::IsSolved() {
  * PUBLIC FUNCTIONS
  */
 
-Sudoku::Sudoku(QTableWidget *widget, Difficulty d) : m_grid(widget) {
+Sudoku::Sudoku(SudokuWindow *s, Difficulty d) : m_sudokuWindow(s) {
+    m_grid = m_sudokuWindow->ui->sudokuWidget;
     std::cout << "Start Sudoku creation" << std::endl;
     CreateRandomSolved();
     std::cout << "Random Sudoku created" << std::endl;
@@ -129,7 +138,8 @@ Sudoku::Sudoku(QTableWidget *widget, Difficulty d) : m_grid(widget) {
     std::cout << "Cells init" << std::endl;
 }
 
-Sudoku::Sudoku(QTableWidget *widget, int custom) : m_grid(widget)  {
+Sudoku::Sudoku(SudokuWindow *s, int custom) : m_sudokuWindow(s) {
+    m_grid = m_sudokuWindow->ui->sudokuWidget;
     std::cout << "Start Sudoku creation" << std::endl;
     CreateRandomSolved();
     std::cout << "Random Sudoku created" << std::endl;
@@ -139,8 +149,33 @@ Sudoku::Sudoku(QTableWidget *widget, int custom) : m_grid(widget)  {
     std::cout << "Cells init" << std::endl;
 }
 
+Sudoku::~Sudoku() {
+    //delete [] cells;
+    //delete [] m_board;
+}
+
 bool Sudoku::checkCell(int row, int col) {
-    return cells[Utils::toRowMajor(row, col)]->checkValue();
+    m_sudokuWindow->cellChangeAllowed = false;
+    bool tmp = cells[Utils::toRowMajor(row, col)]->checkValue();
+    m_sudokuWindow->cellChangeAllowed = true;
+    return tmp;
+}
+
+void Sudoku::changeCell(int row, int col, int val) {
+    m_sudokuWindow->cellChangeAllowed = false;
+    cells[Utils::toRowMajor(row, col)]->changeValue(val);
+    m_sudokuWindow->cellChangeAllowed = true;
+}
+
+void Sudoku::resetCell(int row, int col) {
+    m_sudokuWindow->cellChangeAllowed = false;
+    cells[Utils::toRowMajor(row, col)]->resetValue();
+    m_sudokuWindow->cellChangeAllowed = true;
+    m_board[Utils::toRowMajor(row, col)] = cells[Utils::toRowMajor(row, col)]->m_defaultValue;
+}
+
+void Sudoku::updateBoard(int row, int col) {
+    m_board[Utils::toRowMajor(row, col)] = cells[Utils::toRowMajor(row, col)]->getValue();
 }
 
 bool Sudoku::IsValidBoard() {

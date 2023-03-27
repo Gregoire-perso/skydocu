@@ -1,46 +1,58 @@
 #include "sudokuwindow.h"
+#include "mainwindow.h"
 #include "Game/Sudoku.h"
 #include "ui_sudokuwindow.h"
 #include <iostream>
 
-SudokuWindow::SudokuWindow(Difficulty d, QWidget *parent) :
+SudokuWindow::SudokuWindow(MainWindow *main, Difficulty d, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::SudokuWindow)
+    ui(new Ui::SudokuWindow),
+    m_main(main)
 {
     ui->setupUi(this);
-    sudoku = new Sudoku(ui->sudokuWidget, d);
-    m_initFinished = true;
+    sudoku = new Sudoku(this, d);
+    cellChangeAllowed = true;
 }
 
-SudokuWindow::SudokuWindow(int custom, QWidget *parent) :
+SudokuWindow::SudokuWindow(MainWindow *main, int custom, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::SudokuWindow)
+    ui(new Ui::SudokuWindow),
+    m_main(main)
 {
     ui->setupUi(this);
-    sudoku = new Sudoku(ui->sudokuWidget, custom);
+    sudoku = new Sudoku(this, custom);
+    cellChangeAllowed = true;
 }
 
 SudokuWindow::~SudokuWindow()
 {
+    delete sudoku;
     delete ui;
 }
 
 void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
 {
-    if (m_initFinished) {
+    if (cellChangeAllowed) {
+        cellChangeAllowed = false;
         ui->sudokuWidget->item(row, column)->setBackgroundColor(Qt::transparent);
+        cellChangeAllowed = true;
         if (!sudoku->checkCell(row, column)) {
-            QTableWidgetItem *item = new QTableWidgetItem;
-            item->setText("");
-            ui->sudokuWidget->setItem(row, column, item);
+            sudoku->resetCell(row, column);
+            return;
         }
 
+        sudoku->updateBoard(row, column);
+        sudoku->printBoard();
+
         if (ui->checkGrid->isChecked()) {
-            if (!sudoku->IsValidBoard()) {
-                QTableWidgetItem *item = new QTableWidgetItem;
-                item->setText(ui->sudokuWidget->item(row, column)->text());
-                item->setBackground(Qt::red);
-                ui->sudokuWidget->setItem(row, column, item);
+            std::cout << "Check cell value" << std::endl;
+            if (!(sudoku->IsValidSquare(row, column) ||
+                  sudoku->IsValidCol(column) ||
+                  sudoku->IsValidRow(row))) {
+                std::cout << "Not valid value" << std::endl;
+                cellChangeAllowed = false;
+                ui->sudokuWidget->item(row, column)->setBackgroundColor(Qt::red);
+                cellChangeAllowed = true;
             }
         }
     }
@@ -55,6 +67,8 @@ void SudokuWindow::on_validateButton_clicked()
 
 void SudokuWindow::on_backButton_clicked()
 {
-
+    this->hide();
+    m_main->show();
+    delete this;
 }
 

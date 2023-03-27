@@ -47,16 +47,16 @@ void MainWindow::on_startButton_clicked()
 {
     // Get the radio button selected
     if (ui->easyButton->isChecked())
-        sudoku = new SudokuWindow(Difficulty::Easy);
+        sudoku = new SudokuWindow(this, Difficulty::Easy);
 
     else if (ui->intermediateButton->isChecked())
-        sudoku = new SudokuWindow(Difficulty::Medium);
+        sudoku = new SudokuWindow(this, Difficulty::Medium);
 
     else if (ui->hardButton->isChecked())
-        sudoku = new SudokuWindow(Difficulty::Hard);
+        sudoku = new SudokuWindow(this, Difficulty::Hard);
 
     else if (ui->customButton->isChecked())
-        sudoku = new SudokuWindow(ui->customEmptyCells->value());
+        sudoku = new SudokuWindow(this, ui->customEmptyCells->value());
     
     else
         return;

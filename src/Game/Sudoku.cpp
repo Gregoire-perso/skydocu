@@ -177,6 +177,18 @@ void Sudoku::updateBoard(int row, int col) {
     m_board[Utils::toRowMajor(row, col)] = cells[Utils::toRowMajor(row, col)]->getValue();
 }
 
+void Sudoku::updateAllCells() {
+    for (int row = 0; row < BoardSize; row++)
+        for (int col = 0; col < BoardSize; col++)
+            changeCell(row, col, m_board[Utils::toRowMajor(row, col)]); 
+}
+
+void Sudoku::resetAllCells() {
+    for (int row = 0; row < BoardSize; row++)
+        for (int col = 0; col < BoardSize; col++)
+            resetCell(row, col);            
+}
+
 bool Sudoku::IsValidBoard() {
     for (int i = 0; i < BoardSize; i++)
     {

@@ -86,3 +86,22 @@ void SudokuWindow::on_backButton_clicked()
     m_main->show();
     delete this;
 }
+
+void SudokuWindow::on_solveButton_clicked()
+{
+    if (!sudoku->Solve())
+        QMessageBox::warning(
+                this, 
+                tr("Skydocu"),
+                tr("The sudoku grid is not solvable!"));
+    
+    else
+        sudoku->updateAllCells();
+}
+
+
+void SudokuWindow::on_resetButton_clicked()
+{
+    sudoku->resetAllCells();
+}
+

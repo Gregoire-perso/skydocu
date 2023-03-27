@@ -35,6 +35,8 @@ public:
     void changeCell(int row, int col, int val);
     void resetCell(int row, int col);
     void updateBoard(int row, int col);
+    void updateAllCells();
+    void resetAllCells();
     bool IsValidBoard();
     bool Solve(int pos = 0);
     void printBoard();

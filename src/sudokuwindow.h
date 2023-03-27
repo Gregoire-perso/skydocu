@@ -26,6 +26,10 @@ private slots:
 
     void on_backButton_clicked();
 
+    void on_solveButton_clicked();
+
+    void on_resetButton_clicked();
+
 private:
     friend class Sudoku;
     Ui::SudokuWindow *ui;

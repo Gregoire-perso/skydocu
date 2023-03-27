@@ -11,7 +11,8 @@ friend class Sudoku;
 private:
     /// The widget where the cells are
     QTableWidget *m_widget;
-    QColor m_color;
+    QColor m_backColor;
+    QColor m_fontColor;
     int m_defaultValue;
 
     /// Row of the cell

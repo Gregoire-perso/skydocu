@@ -34,7 +34,7 @@ void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
 {
     if (cellChangeAllowed) {
         cellChangeAllowed = false;
-        ui->sudokuWidget->item(row, column)->setBackgroundColor(Qt::transparent);
+        //ui->sudokuWidget->item(row, column)->setBackgroundColor(Qt::transparent);
         cellChangeAllowed = true;
         if (!sudoku->checkCell(row, column)) {
             sudoku->resetCell(row, column);

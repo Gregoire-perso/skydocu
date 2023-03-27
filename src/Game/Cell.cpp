@@ -9,10 +9,16 @@ Cell::Cell(QTableWidget *widget, int row, int col, int default_value)
     : m_row(row), m_col(col), m_defaultValue(default_value), m_widget(widget) {
     
     if (Utils::getSquareNumber(m_row, m_col) % 2 == 0)
-        m_color = Qt::lightGray;
+        m_backColor = Qt::lightGray;
 
     else
-        m_color = Qt::transparent;
+        m_backColor = Qt::transparent;
+
+    if (m_defaultValue != 0)
+        m_fontColor = Qt::black;
+
+    else
+        m_fontColor = Qt::blue;
 
     resetValue();
 }
@@ -44,14 +50,16 @@ void Cell::changeValue(int val) {
         resetValue();
 
     QTableWidgetItem *item = new QTableWidgetItem;
-    item->setBackground(m_color);
+    item->setBackground(m_backColor);
+    item->setForeground(m_fontColor);
     item->setText(QString::number(val));
     m_widget->setItem(m_row, m_col, item);
 }
 
 void Cell::resetValue() {
     QTableWidgetItem *item = new QTableWidgetItem;
-    item->setBackground(m_color);
+    item->setBackground(m_backColor);
+    item->setForeground(m_fontColor);
     if (m_defaultValue == 0)
         item->setText("");
     else

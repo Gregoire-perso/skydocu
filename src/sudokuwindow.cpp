@@ -46,7 +46,7 @@ void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
                   sudoku->IsValidCol(column) ||
                   sudoku->IsValidRow(row))) {
                 cellChangeAllowed = false;
-                ui->sudokuWidget->item(row, column)->setBackgroundColor(Qt::red);
+                ui->sudokuWidget->item(row, column)->setBackground(Qt::red);
                 cellChangeAllowed = true;
             }
         }
@@ -66,4 +66,3 @@ void SudokuWindow::on_backButton_clicked()
     m_main->show();
     delete this;
 }
-

@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "Game/Sudoku.h"
 #include "ui_sudokuwindow.h"
+#include <QMessageBox>
 #include <iostream>
 
 SudokuWindow::SudokuWindow(MainWindow *main, Difficulty d, QWidget *parent) :
@@ -56,7 +57,26 @@ void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
 
 void SudokuWindow::on_validateButton_clicked()
 {
+    if (!sudoku->IsValidBoard()) {
+        QMessageBox::warning(
+                this, 
+                tr("Skydocu"),
+                tr("The sudoku grid is not valid!\nClick on the check box to highlight wrong cells") );
+    }
 
+    else if (!sudoku->IsSolved()) {
+        QMessageBox::warning(
+                this, 
+                tr("Skydocu"),
+                tr("The sudoku grid is not solved!"));
+    }
+
+    else {
+        QMessageBox::information(
+                this, 
+                tr("Skydocu"),
+                tr("Congrats! The sudoku is solved!"));
+    }
 }
 
 

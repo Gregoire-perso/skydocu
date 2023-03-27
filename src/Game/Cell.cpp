@@ -23,6 +23,15 @@ Cell::Cell(QTableWidget *widget, int row, int col, int default_value)
     resetValue();
 }
 
+void Cell::setItem(QString str) {
+    QTableWidgetItem *item = new QTableWidgetItem;
+    item->setBackground(m_backColor);
+    item->setForeground(m_fontColor);
+    item->setTextAlignment(Qt::AlignCenter);
+    item->setText(str);
+    m_widget->setItem(m_row, m_col, item);
+}
+
 int Cell::getValue() {
     std::string str = m_widget->item(m_row, m_col)->text().toStdString();
     if (str.length() != 1 || !std::all_of(str.begin(), str.end(), ::isdigit) || atoi(str.c_str()) == 0)
@@ -49,20 +58,12 @@ void Cell::changeValue(int val) {
     if (m_defaultValue != 0)
         resetValue();
 
-    QTableWidgetItem *item = new QTableWidgetItem;
-    item->setBackground(m_backColor);
-    item->setForeground(m_fontColor);
-    item->setText(QString::number(val));
-    m_widget->setItem(m_row, m_col, item);
+    setItem(QString::number(val));
 }
 
 void Cell::resetValue() {
-    QTableWidgetItem *item = new QTableWidgetItem;
-    item->setBackground(m_backColor);
-    item->setForeground(m_fontColor);
     if (m_defaultValue == 0)
-        item->setText("");
+        setItem();
     else
-        item->setText(QString::number(m_defaultValue));
-    m_widget->setItem(m_row, m_col, item);
+        setItem(QString::number(m_defaultValue));
 }

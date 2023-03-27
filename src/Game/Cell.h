@@ -21,6 +21,8 @@ private:
     /// Column of the cell
     int m_col;
 
+    void setItem(QString str = "");
+
     /*
      * @brief Check if the text inside the cell is a number between 1 and 9
      *

@@ -36,6 +36,8 @@ private:
 
     void resetValue();
 
+    void changeBackground(QColor color = NULL);
+
     Cell(QTableWidget *widget, int row, int col, int default_value = 0);
 };
 

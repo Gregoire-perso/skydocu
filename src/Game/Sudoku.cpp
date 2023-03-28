@@ -235,3 +235,14 @@ void Sudoku::printBoard() {
             std::cout << std::endl;
     }
 }
+
+void Sudoku::toogleBackground(QColor color = NULL) {
+    for (int row = 0; row < BoardSize; row++) {
+        for (int col = 0; col < BoardSize; col++) {
+            if (!(sudoku->IsValidSquare(row, column) ||
+                  sudoku->IsValidCol(column) ||
+                  sudoku->IsValidRow(row)))
+                cells[Utils::toRowMajor(row, col)]->changeBackground(color);
+        }
+    }
+}

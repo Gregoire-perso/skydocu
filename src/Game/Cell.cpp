@@ -67,3 +67,14 @@ void Cell::resetValue() {
     else
         setItem(QString::number(m_defaultValue));
 }
+
+void Cell::changeBackground(QColor color) {
+    if (m_defaultValue != 0)
+        resetValue();
+
+    else if (color == NULL)
+        m_widget->item(m_row, m_col)->setBackground(m_backColor);
+    
+    else
+        m_widget->item(m_row, m_col)->setBackground(color);
+}

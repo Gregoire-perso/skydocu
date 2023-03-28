@@ -35,6 +35,7 @@ public:
     void changeCell(int row, int col, int val);
     void resetCell(int row, int col);
     void updateBoard(int row, int col);
+    void toogleRedBackground();
     void updateAllCells();
     void resetAllCells();
     bool IsValidBoard();

@@ -105,3 +105,9 @@ void SudokuWindow::on_resetButton_clicked()
     sudoku->resetAllCells();
 }
 
+
+void SudokuWindow::on_checkGrid_stateChanged(int arg1)
+{
+
+}
+

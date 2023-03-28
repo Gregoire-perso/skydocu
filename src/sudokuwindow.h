@@ -30,6 +30,8 @@ private slots:
 
     void on_resetButton_clicked();
 
+    void on_checkGrid_stateChanged(int arg1);
+
 private:
     friend class Sudoku;
     Ui::SudokuWindow *ui;

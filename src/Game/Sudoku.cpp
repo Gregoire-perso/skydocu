@@ -21,7 +21,8 @@ void Sudoku::CreateRandomSolved() {
     for (int i = 1; i < BoardSize + 1; i++)
         shuffled_positions.push_back(i);
 
-    auto rng = std::default_random_engine {};
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng(seed);
     std::shuffle(std::begin(shuffled_positions), 
                  std::end(shuffled_positions),
                  rng);

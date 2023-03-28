@@ -72,7 +72,7 @@ void Cell::changeBackground(QColor color) {
     if (m_defaultValue != 0)
         resetValue();
 
-    else if (color == NULL)
+    else if (color == Qt::color0)
         m_widget->item(m_row, m_col)->setBackground(m_backColor);
     
     else

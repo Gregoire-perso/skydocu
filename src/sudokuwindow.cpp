@@ -40,11 +40,10 @@ void SudokuWindow::on_sudokuWidget_cellChanged(int row, int column)
         }
 
         sudoku->updateBoard(row, column);
-        sudoku->printBoard();
 
         if (ui->checkGrid->isChecked()) {
-            if (!(sudoku->IsValidSquare(row, column) ||
-                  sudoku->IsValidCol(column) ||
+            if (!(sudoku->IsValidSquare(row, column) &&
+                  sudoku->IsValidCol(column) &&
                   sudoku->IsValidRow(row))) {
                 cellChangeAllowed = false;
                 ui->sudokuWidget->item(row, column)->setBackground(Qt::red);
@@ -108,6 +107,10 @@ void SudokuWindow::on_resetButton_clicked()
 
 void SudokuWindow::on_checkGrid_stateChanged(int arg1)
 {
+    if (ui->checkGrid->isChecked())
+        sudoku->toogleBackground(Qt::red);
 
+    else
+        sudoku->toogleBackground();
 }
 

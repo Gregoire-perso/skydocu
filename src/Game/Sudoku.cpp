@@ -236,12 +236,12 @@ void Sudoku::printBoard() {
     }
 }
 
-void Sudoku::toogleBackground(QColor color = NULL) {
+void Sudoku::toogleBackground(QColor color) {
     for (int row = 0; row < BoardSize; row++) {
         for (int col = 0; col < BoardSize; col++) {
-            if (!(sudoku->IsValidSquare(row, column) ||
-                  sudoku->IsValidCol(column) ||
-                  sudoku->IsValidRow(row)))
+            if (!(IsValidSquare(row, col) &&
+                  IsValidCol(col) &&
+                  IsValidRow(row)))
                 cells[Utils::toRowMajor(row, col)]->changeBackground(color);
         }
     }

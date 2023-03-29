@@ -127,17 +127,6 @@ bool Sudoku::IsSolved() {
  * PUBLIC FUNCTIONS
  */
 
-Sudoku::Sudoku(SudokuWindow *s, Difficulty d) : m_sudokuWindow(s) {
-    m_grid = m_sudokuWindow->ui->sudokuWidget;
-    std::cout << "Start Sudoku creation" << std::endl;
-    CreateRandomSolved();
-    std::cout << "Random Sudoku created" << std::endl;
-    clearCells((int) d);
-    std::cout << "Cells cleared" << std::endl;
-    initCells();
-    std::cout << "Cells init" << std::endl;
-}
-
 Sudoku::Sudoku(SudokuWindow *s, int custom) : m_sudokuWindow(s) {
     m_grid = m_sudokuWindow->ui->sudokuWidget;
     std::cout << "Start Sudoku creation" << std::endl;
@@ -149,10 +138,7 @@ Sudoku::Sudoku(SudokuWindow *s, int custom) : m_sudokuWindow(s) {
     std::cout << "Cells init" << std::endl;
 }
 
-Sudoku::~Sudoku() {
-    //delete [] cells;
-    //delete [] m_board;
-}
+Sudoku::Sudoku(SudokuWindow *s, Utils::Difficulty d) : Sudoku(s, (int) d) { }
 
 bool Sudoku::checkCell(int row, int col) {
     m_sudokuWindow->cellChangeAllowed = false;

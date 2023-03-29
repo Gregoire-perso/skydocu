@@ -138,7 +138,7 @@ Sudoku::Sudoku(SudokuWindow *s, int custom) : m_sudokuWindow(s) {
     std::cout << "Cells init" << std::endl;
 }
 
-Sudoku::Sudoku(SudokuWindow *s, Utils::Difficulty d) : Sudoku(s, (int) d) { }
+Sudoku::Sudoku(SudokuWindow *s, Difficulty d) : Sudoku(s, (int) d) { }
 
 bool Sudoku::checkCell(int row, int col) {
     m_sudokuWindow->cellChangeAllowed = false;

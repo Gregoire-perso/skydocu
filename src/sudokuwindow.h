@@ -18,7 +18,7 @@ public:
     /**
      * @brief Initialize the sudoku window
      *
-     * Based on the given Utils::Difficulty, create a sudoku and display it
+     * Based on the given Difficulty, create a sudoku and display it
      *
      * @param *main  A pointer to the MainWindow
      * @param d      The difficulty of the sudoku

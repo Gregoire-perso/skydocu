@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "Game/Sudoku.h"
 #include "ui_mainwindow.h"
 #include "sudokuwindow.h"
 #include <iostream>

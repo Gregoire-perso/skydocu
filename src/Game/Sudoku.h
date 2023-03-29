@@ -1,13 +1,20 @@
 #ifndef SUDOKU_H
 #define SUDOKU_H
 #include "Cell.h"
-#include "Utils.h"
 #include <vector>
 #include <QTableWidget>
 
 using namespace std;
 
 class SudokuWindow;
+
+/**
+ * @enum Difficulty
+ * @brief The default difficulties of the sudoku
+ * @remark The values correspond to the number of showed cells
+ */
+enum Difficulty { Easy = 45, Medium = 30, Hard = 20 };
+
 
 /**
  * @class Sudoku
@@ -52,14 +59,14 @@ public:
     static const int BoardSize = 9;
 
     /**
+     * @brief Constructor of the sudoku based on a preset Difficulty
+     */
+    Sudoku(SudokuWindow *s, Difficulty d);
+
+    /**
      * @brief Constructor of the sudoku based on a cutom number of empty cells
      */
     Sudoku(SudokuWindow *s, int custom = 0);
-
-    /**
-     * @brief Constructor of the sudoku based on a preset Difficulty
-     */
-    Sudoku(SudokuWindow *s, Utils::Difficulty d);
 
     /**
      * @brief Check if the given row is valid or not

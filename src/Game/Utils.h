@@ -5,14 +5,6 @@
 namespace Utils {
 
 /**
- * @enum Difficulty
- * @brief The default difficulties of the sudoku
- * @remark The values correspond to the number of showed cells
- */
-enum Difficulty { Easy = 45, Medium = 30, Hard = 20 };
-
-
-/**
  * @brief Get the row from the row major notation
  */
 inline int getRowFromRowM(int i) {

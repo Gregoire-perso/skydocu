@@ -170,6 +170,17 @@ void Sudoku::updateAllCells() {
             changeCell(row, col, m_board[Utils::toRowMajor(row, col)]); 
 }
 
+void Sudoku::toogleBackground(QColor color) {
+    for (int row = 0; row < BoardSize; row++) {
+        for (int col = 0; col < BoardSize; col++) {
+            if (!(IsValidSquare(row, col) &&
+                  IsValidCol(col) &&
+                  IsValidRow(row)))
+                cells[Utils::toRowMajor(row, col)]->changeBackground(color);
+        }
+    }
+}
+
 void Sudoku::resetAllCells() {
     for (int row = 0; row < BoardSize; row++)
         for (int col = 0; col < BoardSize; col++)
@@ -220,16 +231,5 @@ void Sudoku::printBoard() {
         std::cout << m_board[i] << " ";
         if ((i + 1) % 9 == 0)
             std::cout << std::endl;
-    }
-}
-
-void Sudoku::toogleBackground(QColor color) {
-    for (int row = 0; row < BoardSize; row++) {
-        for (int col = 0; col < BoardSize; col++) {
-            if (!(IsValidSquare(row, col) &&
-                  IsValidCol(col) &&
-                  IsValidRow(row)))
-                cells[Utils::toRowMajor(row, col)]->changeBackground(color);
-        }
     }
 }
